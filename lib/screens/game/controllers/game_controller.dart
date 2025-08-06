@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'packagepackage:flutter/material.dart';
+
 import 'package:get/get.dart';
 import '../models/history_record.dart';
 import '../../../utils/app_colors.dart';
@@ -15,10 +15,30 @@ class GameController extends GetxController {
 
   // HISTORY DATA
   final RxList<HistoryRecord> historyRecords = <HistoryRecord>[
-    HistoryRecord(period: "20250806361", price: 44904, number: 7, resultColor: AppColors.primaryGreen),
-    HistoryRecord(period: "20250806360", price: 44919, number: 9, resultColor: AppColors.primaryGreen),
-    HistoryRecord(period: "20250806359", price: 44949, number: 9, resultColor: AppColors.primaryGreen),
-    HistoryRecord(period: "20250806358", price: 44921, number: 2, resultColor: AppColors.primaryRed),
+    HistoryRecord(
+      period: "20250806361",
+      price: 44904,
+      number: 7,
+      resultColor: AppColors.primaryGreen,
+    ),
+    HistoryRecord(
+      period: "20250806360",
+      price: 44919,
+      number: 9,
+      resultColor: AppColors.primaryGreen,
+    ),
+    HistoryRecord(
+      period: "20250806359",
+      price: 44949,
+      number: 9,
+      resultColor: AppColors.primaryGreen,
+    ),
+    HistoryRecord(
+      period: "20250806358",
+      price: 44921,
+      number: 2,
+      resultColor: AppColors.primaryRed,
+    ),
   ].obs;
 
   @override
@@ -37,7 +57,7 @@ class GameController extends GetxController {
       }
     });
   }
-  
+
   String get formattedTime {
     int minutes = countdownSeconds.value ~/ 60;
     int seconds = countdownSeconds.value % 60;

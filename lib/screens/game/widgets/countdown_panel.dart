@@ -12,22 +12,29 @@ class CountdownPanel extends GetView<GameController> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          _buildInfoColumn('Period', controller.currentPeriod),
-          _buildInfoColumn('Count Down', controller.formattedTime, isTimer: true),
+          // We wrap this in Obx so it rebuilds when controller.currentPeriod changes
+          Obx(() => _buildInfoColumn('Period', controller.currentPeriod.value)),
+          
+          // We wrap this in Obx so it rebuilds when controller.formattedTime changes
+          Obx(() => _buildInfoColumn('Count Down', controller.formattedTime)),
         ],
       ),
     );
   }
 
-  Widget _buildInfoColumn(String title, RxString value, {bool isTimer = false}) {
+  // CHANGE #1: The second parameter is now a plain String, not RxString.
+  Widget _buildInfoColumn(String title, String value) {
     return Column(
       children: [
         Text(title, style: TextStyle(fontSize: 16, color: Colors.grey.shade600)),
         const SizedBox(height: 8),
-        Obx(() => Text(
-          isTimer ? controller.formattedTime : value.value,
+        
+        // CHANGE #2: The Text widget now just displays the value directly.
+        // The Obx in the parent `build` method handles the rebuilding.
+        Text(
+          value,
           style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-        )),
+        ),
       ],
     );
   }
