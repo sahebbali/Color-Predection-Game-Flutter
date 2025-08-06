@@ -1,4 +1,5 @@
-import 'package:color_predection_game/game_nav_bar.dart';
+
+import 'package:color_predection_game/navigation_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
@@ -37,7 +38,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const GameNavBar(), // Your first screen after the splash
+      home: const NavigationMenu(), // Your first screen after the splash
     );
   }
 }
