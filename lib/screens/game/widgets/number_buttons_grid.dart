@@ -61,7 +61,6 @@ class NumberButtonsGrid extends StatelessWidget {
   }
 
   Widget _buildNumberButton(int number) {
-    // Determine colors based on number
     final List<Color> colors = _getColorsForNumber(number);
 
     return ElevatedButton(
@@ -69,9 +68,13 @@ class NumberButtonsGrid extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         padding: EdgeInsets.zero,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+        backgroundColor:
+            Colors.transparent, // Make sure button background is transparent
+        shadowColor: Colors.transparent, // Optional: remove shadow if gradient
       ),
       child: Ink(
         decoration: BoxDecoration(
+          color: colors.length == 1 ? colors.first : null,
           gradient: colors.length > 1
               ? LinearGradient(
                   colors: colors,
@@ -79,7 +82,7 @@ class NumberButtonsGrid extends StatelessWidget {
                   end: Alignment.bottomRight,
                   stops: const [0.5, 0.5],
                 )
-              : LinearGradient(colors: colors),
+              : null,
           borderRadius: BorderRadius.circular(5),
         ),
         child: Container(
@@ -104,13 +107,19 @@ class NumberButtonsGrid extends StatelessWidget {
       case 5:
         return [AppColors.primaryViolet, AppColors.primaryGreen];
       case 1:
+        return [AppColors.primaryGreen];
       case 3:
+        return [AppColors.primaryGreen];
       case 7:
+        return [AppColors.primaryGreen];
       case 9:
         return [AppColors.primaryGreen];
       case 2:
+        return [AppColors.primaryRed];
       case 4:
+        return [AppColors.primaryRed];
       case 6:
+        return [AppColors.primaryRed];
       case 8:
         return [AppColors.primaryRed];
       default:

@@ -15,19 +15,28 @@ class TopHeader extends GetView<GameController> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Obx(() => Text(
-            'Available balance: ₹ ${controller.balance.value.toStringAsFixed(2)}',
-            style: const TextStyle(color: Colors.white, fontSize: 16),
-          )),
+                'Available balance: ₹ ${controller.balance.value.toStringAsFixed(2)}',
+                style: const TextStyle(color: Colors.white, fontSize: 16),
+              )),
           const SizedBox(height: 12),
           Row(
             children: [
-              _buildButton('Recharge', Colors.blue.shade700),
+              _buildButton(
+                'Recharge',
+                Colors.blue.shade700,
+                onPressed: controller.recharge,
+              ),
               const SizedBox(width: 16),
-              _buildButton('Trend', Colors.white, textColor: Colors.black),
+              _buildButton(
+                'Trend',
+                Colors.white,
+                textColor: Colors.black,
+                onPressed: controller.viewTrend,
+              ),
               const Spacer(),
               IconButton(
                 icon: const Icon(Icons.refresh, color: Colors.white),
-                onPressed: () { /* Refresh logic */ },
+                onPressed: controller.refreshBalance,
               )
             ],
           ),
@@ -36,9 +45,10 @@ class TopHeader extends GetView<GameController> {
     );
   }
 
-  Widget _buildButton(String text, Color color, {Color textColor = Colors.white}) {
+  Widget _buildButton(String text, Color color,
+      {Color textColor = Colors.white, required VoidCallback onPressed}) {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         backgroundColor: color,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),

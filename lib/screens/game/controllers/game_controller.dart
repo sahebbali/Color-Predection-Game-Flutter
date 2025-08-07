@@ -69,4 +69,28 @@ class GameController extends GetxController {
     _timer?.cancel();
     super.onClose();
   }
+
+  // .obs makes the variable observable. The UI will react to its changes.
+
+  // Example function to simulate fetching a new balance
+  void refreshBalance() {
+    // In a real app, you would fetch this from an API
+    balance.value = 1250.75;
+    Get.snackbar(
+      "Refreshed",
+      "Your balance has been updated.",
+      snackPosition: SnackPosition.BOTTOM,
+    );
+  }
+
+  void recharge() {
+    // Logic for recharging
+    Get.toNamed('/recharge-screen'); // Example navigation
+    print("Recharge button pressed");
+  }
+
+  void viewTrend() {
+    // Logic for viewing trends
+    print("Trend button pressed");
+  }
 }
