@@ -1,10 +1,12 @@
+import 'package:color_predection_game/screens/game/controllers/game_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../utils/app_colors.dart';
 
 class NumberButtonsGrid extends StatelessWidget {
   const NumberButtonsGrid({super.key});
-
+  // final GameController gameController = Get.find<GameController>();
+  // print("gameController: ${gameController.formattedTime}");
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -61,46 +63,53 @@ class NumberButtonsGrid extends StatelessWidget {
   }
 
   Widget _buildNumberButton(int number) {
+    final GameController gameController = Get.find<GameController>();
     final List<Color> colors = _getColorsForNumber(number);
 
-    // Fallback to a solid color if only one is provided
     final Color color1 = colors.length > 1 ? colors[0] : colors[0];
     final Color color2 = colors.length > 1 ? colors[1] : colors[0];
 
-    return ElevatedButton(
-      onPressed: () {},
-      style: ElevatedButton.styleFrom(
-        padding: EdgeInsets.zero,
-        backgroundColor: Colors.transparent,
-        shadowColor: Colors.transparent,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(8),
-        child: SizedBox(
-          height: 50,
-          width: 80,
-          child: Stack(
-            children: [
-              ClipPath(
-                clipper: DiagonalClipper(),
-                child: Container(color: color1),
-              ),
-              ClipPath(
-                clipper: DiagonalClipper(reverse: true),
-                child: Container(color: color2),
-              ),
-              Center(
-                child: Text(
-                  '$number',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
+    return Obx(
+      () => ElevatedButton(
+        onPressed: gameController.disableGame.value
+            ? (){print('Game is disabled')}
+            : () {
+                // Button logic when enabled
+                print('Button $number pressed');
+              },
+        style: ElevatedButton.styleFrom(
+          padding: EdgeInsets.zero,
+          backgroundColor: Colors.transparent,
+          shadowColor: Colors.transparent,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: SizedBox(
+            height: 50,
+            width: 80,
+            child: Stack(
+              children: [
+                ClipPath(
+                  clipper: DiagonalClipper(),
+                  child: Container(color: color1),
+                ),
+                ClipPath(
+                  clipper: DiagonalClipper(reverse: true),
+                  child: Container(color: color2),
+                ),
+                Center(
+                  child: Text(
+                    '$number',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

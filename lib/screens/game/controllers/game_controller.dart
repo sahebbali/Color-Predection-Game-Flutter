@@ -8,6 +8,7 @@ class GameController extends GetxController {
   // GAME STATE
   final RxString currentPeriod = "20250806362".obs;
   final RxInt countdownSeconds = 170.obs; // 2 minutes 50 seconds
+  final RxBool disableGame = false.obs; // Disable game initially
   Timer? _timer;
 
   // USER DATA
@@ -51,11 +52,19 @@ class GameController extends GetxController {
     _timer = Timer.periodic(const Duration(seconds: 1), (_) {
       if (countdownSeconds.value > 0) {
         countdownSeconds.value--;
+        if (countdownSeconds.value <= 30) {
+          disableGame.value = true; // Enable game when countdown ends
+        }
       } else {
         // Reset timer and fetch new period data
         countdownSeconds.value = 180;
+        disableGame.value = false; // Disable game when countdown ends
       }
     });
+  }
+
+  bool get disableGameButton {
+    return disableGame.value; // Disable game button
   }
 
   String get formattedTime {
