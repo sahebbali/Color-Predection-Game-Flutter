@@ -63,37 +63,44 @@ class NumberButtonsGrid extends StatelessWidget {
   Widget _buildNumberButton(int number) {
     final List<Color> colors = _getColorsForNumber(number);
 
+    // Fallback to a solid color if only one is provided
+    final Color color1 = colors.length > 1 ? colors[0] : colors[0];
+    final Color color2 = colors.length > 1 ? colors[1] : colors[0];
+
     return ElevatedButton(
       onPressed: () {},
       style: ElevatedButton.styleFrom(
         padding: EdgeInsets.zero,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-        backgroundColor:
-            Colors.transparent, // Make sure button background is transparent
-        shadowColor: Colors.transparent, // Optional: remove shadow if gradient
+        backgroundColor: Colors.transparent,
+        shadowColor: Colors.transparent,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
-      child: Ink(
-        decoration: BoxDecoration(
-          color: colors.length == 1 ? colors.first : null,
-          gradient: colors.length > 1
-              ? LinearGradient(
-                  colors: colors,
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  stops: const [0.5, 0.5],
-                )
-              : null,
-          borderRadius: BorderRadius.circular(5),
-        ),
-        child: Container(
-          alignment: Alignment.center,
-          child: Text(
-            '$number',
-            style: const TextStyle(
-              fontSize: 18,
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(8),
+        child: SizedBox(
+          height: 50,
+          width: 80,
+          child: Stack(
+            children: [
+              ClipPath(
+                clipper: DiagonalClipper(),
+                child: Container(color: color1),
+              ),
+              ClipPath(
+                clipper: DiagonalClipper(reverse: true),
+                child: Container(color: color2),
+              ),
+              Center(
+                child: Text(
+                  '$number',
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),
@@ -126,4 +133,31 @@ class NumberButtonsGrid extends StatelessWidget {
         return [Colors.grey];
     }
   }
+}
+
+class DiagonalClipper extends CustomClipper<Path> {
+  final bool reverse;
+
+  DiagonalClipper({this.reverse = false});
+
+  @override
+  Path getClip(Size size) {
+    Path path = Path();
+
+    if (reverse) {
+      path.moveTo(size.width, 0);
+      path.lineTo(size.width, size.height);
+      path.lineTo(0, size.height);
+    } else {
+      path.moveTo(0, 0);
+      path.lineTo(size.width, 0);
+      path.lineTo(0, size.height);
+    }
+
+    path.close();
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }
