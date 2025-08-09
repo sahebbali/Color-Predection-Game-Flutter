@@ -2,6 +2,7 @@ import 'package:color_predection_game/screens/game/controllers/game_controller.d
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../utils/app_colors.dart';
+import './confirmation_dialog.dart';
 
 class NumberButtonsGrid extends StatelessWidget {
   const NumberButtonsGrid({super.key});
@@ -29,7 +30,7 @@ class NumberButtonsGrid extends StatelessWidget {
                   isGameDisabled,
                   () {
                     // Add your logic for joining green
-                    print('Join Green pressed');
+                    showConfirmationDialog(context, 'Green');
                   },
                 ),
                 _buildColorButton(
@@ -39,6 +40,7 @@ class NumberButtonsGrid extends StatelessWidget {
                   () {
                     // Add your logic for joining violet
                     print('Join Violet pressed');
+                    showConfirmationDialog(context, 'Violet');
                   },
                 ),
                 _buildColorButton(
@@ -47,7 +49,7 @@ class NumberButtonsGrid extends StatelessWidget {
                   isGameDisabled,
                   () {
                     // Add your logic for joining red
-                    print('Join Red pressed');
+                    showConfirmationDialog(context, 'Red');
                   },
                 ),
               ],
@@ -72,7 +74,7 @@ class NumberButtonsGrid extends StatelessWidget {
                 // Pass the disabled status to the button builder
                 return _buildNumberButton(index, isGameDisabled, () {
                   // Add your logic for number button press
-                  print('Button $index pressed');
+                  showConfirmationDialog(context, 'Number $index');
                 });
               },
             );
