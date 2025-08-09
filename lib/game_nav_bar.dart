@@ -5,10 +5,10 @@ class GameNavBar extends StatefulWidget {
   final int currentIndex;
 
   const GameNavBar({
-    Key? key,
+    super.key,
     required this.onTabChange,
     required this.currentIndex,
-  }) : super(key: key);
+  });
 
   @override
   _GameNavBarState createState() => _GameNavBarState();
