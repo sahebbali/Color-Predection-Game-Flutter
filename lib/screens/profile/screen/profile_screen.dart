@@ -1,4 +1,4 @@
-import 'package:color_predection_game/screens/profile/screen/profile_options/signin_screen.dart';
+import 'package:color_predection_game/screens/auth/login/signin_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

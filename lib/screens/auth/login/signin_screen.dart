@@ -1,3 +1,4 @@
+import 'package:color_predection_game/screens/auth/signup/registration_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -118,7 +119,7 @@ class SignInScreen extends StatelessWidget {
                 // Register Link
                 TextButton(
                   onPressed: () {
-                    Get.snackbar("Navigate", "Go to Register Page");
+                    Get.to(() => RegistrationScreen());
                   },
                   child: const Text(
                     "Don't have an account? Register",
