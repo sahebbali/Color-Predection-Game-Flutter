@@ -1,3 +1,4 @@
+import 'package:color_predection_game/screens/auth/signup/terms_and_conditions_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -47,7 +48,9 @@ class RegistrationController extends GetxController {
     isLoading.value = true;
     await Future.delayed(const Duration(seconds: 2)); // Simulate API call
     isLoading.value = false;
-
+    print(
+      "Registered with email: ${email.value} and password: ${password.value} and phone: ${phone.value} and sponsor ID: ${sponsorId.value}",
+    );
     Get.snackbar(
       "Success",
       "Account created successfully!",
@@ -139,19 +142,28 @@ class RegistrationScreen extends StatelessWidget {
                     ),
                     Expanded(
                       child: GestureDetector(
-                        onTap: () {
-                          controller.acceptTerms.value =
-                              !controller.acceptTerms.value;
+                        onTap: () async {
+                          var accepted = await Get.to(
+                            () => TermsAndConditionsPage(),
+                          );
+                          if (accepted == true) {
+                            controller.acceptTerms.value = true;
+                          }
                         },
                         child: const Text(
                           "I accept the Terms & Conditions",
-                          style: TextStyle(fontSize: 14),
+                          style: TextStyle(
+                            fontSize: 14,
+                            decoration: TextDecoration.underline,
+                            color: Colors.blue,
+                          ),
                         ),
                       ),
                     ),
                   ],
                 ),
               ),
+
               const SizedBox(height: 16),
 
               // Sign Up Button
@@ -171,7 +183,10 @@ class RegistrationScreen extends StatelessWidget {
                         : controller.register,
                     child: controller.isLoading.value
                         ? const CircularProgressIndicator(color: Colors.white)
-                        : const Text("Sign Up", style: TextStyle(fontSize: 18)),
+                        : const Text(
+                            "Sign Up",
+                            style: TextStyle(fontSize: 18, color: Colors.white),
+                          ),
                   ),
                 ),
               ),
