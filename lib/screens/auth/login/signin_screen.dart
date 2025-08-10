@@ -1,3 +1,4 @@
+import 'package:color_predection_game/navigation_menu.dart';
 import 'package:color_predection_game/screens/auth/signup/registration_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -29,6 +30,7 @@ class SignInController extends GetxController {
       "Signed in successfully!",
       snackPosition: SnackPosition.BOTTOM,
     );
+    Get.to(() => NavigationMenu());
   }
 }
 
@@ -39,6 +41,7 @@ class SignInScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: Text("Sign In")),
       backgroundColor: Colors.grey.shade100,
       body: SafeArea(
         child: Center(

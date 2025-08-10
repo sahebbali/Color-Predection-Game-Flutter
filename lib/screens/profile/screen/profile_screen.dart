@@ -1,4 +1,5 @@
 import 'package:color_predection_game/screens/auth/login/signin_screen.dart';
+import 'package:color_predection_game/screens/profile/screen/profile_options/bank_card_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -193,12 +194,11 @@ class ProfileMenuList extends StatelessWidget {
         //   title: "Wallet",
         //   onTap: () => Get.to(() => const PlaceholderScreen(title: "Wallet")),
         // ),
-        // MenuListItem(
-        //   icon: Icons.credit_card_outlined,
-        //   title: "Bank Card",
-        //   onTap: () =>
-        //       Get.to(() => const PlaceholderScreen(title: "Bank Card")),
-        // ),
+        MenuListItem(
+          icon: Icons.credit_card_outlined,
+          title: "Bank Card",
+          onTap: () => Get.to(() => BankCardScreen()),
+        ),
         // MenuListItem(
         //   icon: Icons.location_city_outlined,
         //   title: "Address",

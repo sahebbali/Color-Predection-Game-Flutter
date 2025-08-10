@@ -1,3 +1,4 @@
+import 'package:color_predection_game/navigation_menu.dart';
 import 'package:color_predection_game/screens/auth/signup/terms_and_conditions_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -56,6 +57,7 @@ class RegistrationController extends GetxController {
       "Account created successfully!",
       snackPosition: SnackPosition.BOTTOM,
     );
+    Get.to(() => NavigationMenu());
   }
 }
 
