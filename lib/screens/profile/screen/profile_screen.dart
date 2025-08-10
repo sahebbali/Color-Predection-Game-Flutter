@@ -161,70 +161,69 @@ class ProfileMenuList extends StatelessWidget {
         MenuListItem(
           icon: Icons.event_available_outlined,
           title: "Sign In",
-          onTap: () => Get.to(() => const SignInScreen()),
+          onTap: () => Get.to(() => SignInScreen()),
         ),
-        MenuListItem(
-          icon: Icons.list_alt_outlined,
-          title: "Orders",
-          onTap: () => Get.to(() => const PlaceholderScreen(title: "Orders")),
-        ),
-        MenuListItem(
-          icon: Icons.card_giftcard_outlined,
-          title: "Promotion",
-          onTap: () =>
-              Get.to(() => const PlaceholderScreen(title: "Promotion")),
-        ),
-        MenuListItem(
-          icon: Icons.monetization_on_outlined,
-          title: "Red Envelope",
-          iconColor: tealColor,
-          onTap: () =>
-              Get.to(() => const PlaceholderScreen(title: "Red Envelope")),
-        ),
-        MenuListItem(
-          icon: Icons.monetization_on_outlined,
-          title: "Luck Draw",
-          iconColor: tealColor,
-          onTap: () =>
-              Get.to(() => const PlaceholderScreen(title: "Luck Draw")),
-        ),
-        MenuListItem(
-          icon: Icons.account_balance_wallet_outlined,
-          title: "Wallet",
-          onTap: () => Get.to(() => const PlaceholderScreen(title: "Wallet")),
-        ),
-        MenuListItem(
-          icon: Icons.credit_card_outlined,
-          title: "Bank Card",
-          onTap: () =>
-              Get.to(() => const PlaceholderScreen(title: "Bank Card")),
-        ),
-        MenuListItem(
-          icon: Icons.location_city_outlined,
-          title: "Address",
-          onTap: () => Get.to(() => const PlaceholderScreen(title: "Address")),
-        ),
-        MenuListItem(
-          icon: Icons.shield_outlined,
-          title: "Account Security",
-          onTap: () =>
-              Get.to(() => const PlaceholderScreen(title: "Account Security")),
-        ),
+        // MenuListItem(
+        //   icon: Icons.list_alt_outlined,
+        //   title: "Orders",
+        //   onTap: () => Get.to(() => const PlaceholderScreen(title: "Orders")),
+        // ),
+        // MenuListItem(
+        //   icon: Icons.card_giftcard_outlined,
+        //   title: "Promotion",
+        //   onTap: () =>
+        //       Get.to(() => const PlaceholderScreen(title: "Promotion")),
+        // ),
+        // MenuListItem(
+        //   icon: Icons.monetization_on_outlined,
+        //   title: "Red Envelope",
+        //   iconColor: tealColor,
+        //   onTap: () =>
+        //       Get.to(() => const PlaceholderScreen(title: "Red Envelope")),
+        // ),
+        // MenuListItem(
+        //   icon: Icons.monetization_on_outlined,
+        //   title: "Luck Draw",
+        //   iconColor: tealColor,
+        //   onTap: () =>
+        //       Get.to(() => const PlaceholderScreen(title: "Luck Draw")),
+        // ),
+        // MenuListItem(
+        //   icon: Icons.account_balance_wallet_outlined,
+        //   title: "Wallet",
+        //   onTap: () => Get.to(() => const PlaceholderScreen(title: "Wallet")),
+        // ),
+        // MenuListItem(
+        //   icon: Icons.credit_card_outlined,
+        //   title: "Bank Card",
+        //   onTap: () =>
+        //       Get.to(() => const PlaceholderScreen(title: "Bank Card")),
+        // ),
+        // MenuListItem(
+        //   icon: Icons.location_city_outlined,
+        //   title: "Address",
+        //   onTap: () => Get.to(() => const PlaceholderScreen(title: "Address")),
+        // ),
+        // MenuListItem(
+        //   icon: Icons.shield_outlined,
+        //   title: "Account Security",
+        //   onTap: () =>
+        //       Get.to(() => const PlaceholderScreen(title: "Account Security")),
+        // ),
         MenuListItem(
           icon: Icons.download_outlined,
           title: "App Download",
-          onTap: () =>
-              Get.to(() => const PlaceholderScreen(title: "App Download")),
+          onTap: () => print("App Download tapped"),
         ),
-        MenuListItem(
-          icon: Icons.chat_bubble_outline,
-          title: "Complaints & Suggestions",
-          onTap: () => Get.to(
-            () => const PlaceholderScreen(title: "Complaints & Suggestions"),
-          ),
-          // Add the trailing down arrow icon here
-          trailing: Icon(Icons.keyboard_arrow_down, color: Colors.grey[600]),
-        ),
+        // MenuListItem(
+        //   icon: Icons.chat_bubble_outline,
+        //   title: "Complaints & Suggestions",
+        //   onTap: () => Get.to(
+        //     () => const PlaceholderScreen(title: "Complaints & Suggestions"),
+        //   ),
+        //   // Add the trailing down arrow icon here
+        //   trailing: Icon(Icons.keyboard_arrow_down, color: Colors.grey[600]),
+        // ),
       ],
     );
   }
