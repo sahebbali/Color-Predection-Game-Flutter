@@ -47,9 +47,11 @@ class _StatsScreenState extends State<StatsScreen>
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [_buildHeader(theme), _buildStatsContent(theme)],
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [_buildHeader(theme), _buildStatsContent(theme)],
+      ),
     );
   }
 
@@ -58,6 +60,7 @@ class _StatsScreenState extends State<StatsScreen>
       onTap: _toggleExpanded,
       child: Card(
         elevation: 4,
+        margin: const EdgeInsets.all(16),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -92,114 +95,117 @@ class _StatsScreenState extends State<StatsScreen>
   }
 
   Widget _buildStatsContent(ThemeData theme) {
-    return AnimatedCrossFade(
+    return AnimatedSize(
       duration: const Duration(milliseconds: 300),
-      crossFadeState: _isExpanded
-          ? CrossFadeState.showSecond
-          : CrossFadeState.showFirst,
-      firstChild: const SizedBox.shrink(),
-      secondChild: Padding(
-        padding: const EdgeInsets.only(top: 8),
-        child: Column(
-          children: [
-            _StatCard(
-              title: 'Overall Performance',
-              icon: Icons.pie_chart_outline,
-              iconColor: theme.colorScheme.primary,
-              content: Column(
+      child: _isExpanded
+          ? Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      _PerformanceStat(
-                        label: 'Wins',
-                        value: '128',
-                        color: Colors.green.shade400,
-                        textStyle: theme.textTheme.bodyMedium,
-                      ),
-                      _PerformanceStat(
-                        label: 'Losses',
-                        value: '74',
-                        color: Colors.red.shade400,
-                        textStyle: theme.textTheme.bodyMedium,
-                      ),
-                    ],
+                  _StatCard(
+                    title: 'Overall Performance',
+                    icon: Icons.pie_chart_outline,
+                    iconColor: theme.colorScheme.primary,
+                    content: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            _PerformanceStat(
+                              label: 'Wins',
+                              value: '128',
+                              color: Colors.green.shade400,
+                              textStyle: theme.textTheme.bodyMedium,
+                            ),
+                            _PerformanceStat(
+                              label: 'Losses',
+                              value: '74',
+                              color: Colors.red.shade400,
+                              textStyle: theme.textTheme.bodyMedium,
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 16),
+                        Text(
+                          '63.4% Win Rate',
+                          style: theme.textTheme.titleLarge,
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  _StatCard(
+                    title: 'Streaks & Records',
+                    icon: Icons.star_border,
+                    iconColor: theme.colorScheme.primary,
+                    content: Column(
+                      children: [
+                        ListTile(
+                          leading: Icon(
+                            Icons.whatshot,
+                            color: Colors.orange.shade400,
+                          ),
+                          title: const Text('Current Streak'),
+                          trailing: Text(
+                            '4 Wins',
+                            style: theme.textTheme.titleMedium?.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        const Divider(),
+                        ListTile(
+                          leading: Icon(
+                            Icons.emoji_events_outlined,
+                            color: Colors.amber,
+                          ),
+                          title: const Text('Longest Win Streak'),
+                          trailing: Text(
+                            '11 Wins',
+                            style: theme.textTheme.titleMedium?.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  _StatCard(
+                    title: 'Prediction History',
+                    icon: Icons.history,
+                    iconColor: theme.colorScheme.primary,
+                    content: Column(
+                      children: const [
+                        _PredictionHistoryRow(
+                          pickedColor: Colors.red,
+                          resultColor: Colors.red,
+                          isWin: true,
+                        ),
+                        _PredictionHistoryRow(
+                          pickedColor: Colors.blue,
+                          resultColor: Colors.green,
+                          isWin: false,
+                        ),
+                        _PredictionHistoryRow(
+                          pickedColor: Colors.yellow,
+                          resultColor: Colors.red,
+                          isWin: false,
+                        ),
+                        _PredictionHistoryRow(
+                          pickedColor: Colors.green,
+                          resultColor: Colors.green,
+                          isWin: true,
+                        ),
+                      ],
+                    ),
                   ),
                   const SizedBox(height: 16),
-                  Text('63.4% Win Rate', style: theme.textTheme.titleLarge),
                 ],
               ),
-            ),
-            const SizedBox(height: 12),
-            _StatCard(
-              title: 'Streaks & Records',
-              icon: Icons.star_border,
-              iconColor: theme.colorScheme.primary,
-              content: Column(
-                children: [
-                  ListTile(
-                    leading: Icon(
-                      Icons.whatshot,
-                      color: Colors.orange.shade400,
-                    ),
-                    title: const Text('Current Streak'),
-                    trailing: Text(
-                      '4 Wins',
-                      style: theme.textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  const Divider(),
-                  ListTile(
-                    leading: Icon(
-                      Icons.emoji_events_outlined,
-                      color: Colors.amber,
-                    ),
-                    title: const Text('Longest Win Streak'),
-                    trailing: Text(
-                      '11 Wins',
-                      style: theme.textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 5),
-            _StatCard(
-              title: 'Prediction History',
-              icon: Icons.history,
-              iconColor: theme.colorScheme.primary,
-              content: Column(
-                children: const [
-                  _PredictionHistoryRow(
-                    pickedColor: Colors.red,
-                    resultColor: Colors.red,
-                    isWin: true,
-                  ),
-                  _PredictionHistoryRow(
-                    pickedColor: Colors.blue,
-                    resultColor: Colors.green,
-                    isWin: false,
-                  ),
-                  _PredictionHistoryRow(
-                    pickedColor: Colors.yellow,
-                    resultColor: Colors.red,
-                    isWin: false,
-                  ),
-                  _PredictionHistoryRow(
-                    pickedColor: Colors.green,
-                    resultColor: Colors.green,
-                    isWin: true,
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
+            )
+          : const SizedBox.shrink(),
     );
   }
 }
@@ -295,8 +301,6 @@ class _PredictionHistoryRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
