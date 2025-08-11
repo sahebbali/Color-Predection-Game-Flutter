@@ -6,7 +6,7 @@ import '../../../utils/app_colors.dart';
 
 class GameController extends GetxController {
   // GAME STATE
-  final RxString currentPeriod = "20250806362".obs;
+  final RxInt currentPeriod = 20250806362.obs;
   final RxInt countdownSeconds = 170.obs; // 2 minutes 50 seconds
   final RxBool disableGame = false.obs; // Disable game initially
   Timer? _timer;
@@ -58,6 +58,7 @@ class GameController extends GetxController {
       } else {
         // Reset timer and fetch new period data
         countdownSeconds.value = 180;
+        currentPeriod.value++;
         disableGame.value = false; // Disable game when countdown ends
       }
     });

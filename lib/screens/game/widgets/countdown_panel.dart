@@ -13,7 +13,12 @@ class CountdownPanel extends GetView<GameController> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           // We wrap this in Obx so it rebuilds when controller.currentPeriod changes
-          Obx(() => _buildInfoColumn('Period', controller.currentPeriod.value)),
+          Obx(
+            () => _buildInfoColumn(
+              'Period',
+              controller.currentPeriod.value.toString(),
+            ),
+          ),
 
           // We wrap this in Obx so it rebuilds when controller.formattedTime changes
           Obx(() => _buildInfoColumn('Count Down', controller.formattedTime)),
@@ -24,7 +29,7 @@ class CountdownPanel extends GetView<GameController> {
 
   // CHANGE #1: The second parameter is now a plain String, not RxString.
   Widget _buildInfoColumn(String title, String value) {
-    print("CountdownPanel: $title - $value");
+    // print("CountdownPanel: $title - $value");
     return Column(
       children: [
         Text(
