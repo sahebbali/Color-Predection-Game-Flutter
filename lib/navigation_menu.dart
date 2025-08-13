@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-
 import '../../utils/constants/colors.dart';
 import '../../utils/helpers/helper_functions.dart';
 import 'navigation_controller.dart';
@@ -21,9 +20,9 @@ class NavigationMenu extends StatelessWidget {
           height: 80,
           elevation: 0,
           backgroundColor: darkMode ? HkColors.dark : HkColors.light,
-          indicatorColor: darkMode 
-              ? HkColors.light.withOpacity(0.1) 
-              : HkColors.dark.withOpacity(0.1),
+          indicatorColor: darkMode
+              ? HkColors.light.withOpacity(0.1)
+              : Colors.purple.shade600,
           selectedIndex: controller.selectedIndex.value,
           onDestinationSelected: (index) => controller.selectedIndex.value = index,
           destinations: const [
@@ -41,6 +40,11 @@ class NavigationMenu extends StatelessWidget {
               icon: Icon(Iconsax.chart),
               selectedIcon: Icon(Iconsax.chart_2),
               label: 'Stats',
+            ),
+            NavigationDestination(
+              icon: Icon(Iconsax.wallet),
+              selectedIcon: Icon(Iconsax.wallet),
+              label: 'Wallet',
             ),
             NavigationDestination(
               icon: Icon(Iconsax.user),

@@ -33,7 +33,7 @@ class ProfileHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Replicating the colors from the image
-    const Color primaryRed = Color(0xFFD50000);
+    const Color primaryPurple = Colors.purple;
     const Color buttonBlue = Color(0xFF1976D2);
 
     return Container(
@@ -43,7 +43,7 @@ class ProfileHeader extends StatelessWidget {
         16,
         16,
       ), // Added top padding for status bar
-      decoration: const BoxDecoration(color: primaryRed),
+      decoration: const BoxDecoration(color: primaryPurple),
       child: Column(
         children: [
           // Top section: Profile info and notification icon
@@ -155,7 +155,7 @@ class ProfileMenuList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const tealColor = Color(0xFF00897B);
+    // const tealColor = Color(0xFF00897B);
 
     return ListView(
       padding: EdgeInsets.zero, // Remove default padding
@@ -219,12 +219,17 @@ class ProfileMenuList extends StatelessWidget {
         // MenuListItem(
         //   icon: Icons.chat_bubble_outline,
         //   title: "Complaints & Suggestions",
-        //   onTap: () => Get.to(
-        //     () => const PlaceholderScreen(title: "Complaints & Suggestions"),
-        //   ),
+        //   onTap: () => Get.to(() => {}),
         //   // Add the trailing down arrow icon here
         //   trailing: Icon(Icons.keyboard_arrow_down, color: Colors.grey[600]),
         // ),
+        MenuListItem(
+          icon: Icons.logout,
+          title: "Log out",
+          onTap: () => Get.offAll(() => SignInScreen()),
+          // Add the trailing down arrow icon here
+          trailing: Icon(Icons.keyboard_arrow_down, color: Colors.grey[600]),
+        ),
       ],
     );
   }
@@ -257,20 +262,6 @@ class MenuListItem extends StatelessWidget {
       ),
       onTap: onTap,
       trailing: Icon(Icons.keyboard_arrow_down), // Use the trailing widget here
-    );
-  }
-}
-
-// --- A Generic Placeholder Screen for Navigation ---
-class PlaceholderScreen extends StatelessWidget {
-  final String title;
-  const PlaceholderScreen({super.key, required this.title});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(title)),
-      body: Center(child: Text('$title Screen')),
     );
   }
 }
