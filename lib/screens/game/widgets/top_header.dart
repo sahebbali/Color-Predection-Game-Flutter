@@ -10,14 +10,16 @@ class TopHeader extends GetView<GameController> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      color: AppColors.primaryRed,
+      color: AppColors.primaryViolet,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Obx(() => Text(
-                'Available balance: ₹ ${controller.balance.value.toStringAsFixed(2)}',
-                style: const TextStyle(color: Colors.white, fontSize: 16),
-              )),
+          Obx(
+            () => Text(
+              'Available balance: ₹ ${controller.balance.value.toStringAsFixed(2)}',
+              style: const TextStyle(color: Colors.white, fontSize: 16),
+            ),
+          ),
           const SizedBox(height: 12),
           Row(
             children: [
@@ -37,7 +39,7 @@ class TopHeader extends GetView<GameController> {
               IconButton(
                 icon: const Icon(Icons.refresh, color: Colors.white),
                 onPressed: controller.refreshBalance,
-              )
+              ),
             ],
           ),
         ],
@@ -45,8 +47,12 @@ class TopHeader extends GetView<GameController> {
     );
   }
 
-  Widget _buildButton(String text, Color color,
-      {Color textColor = Colors.white, required VoidCallback onPressed}) {
+  Widget _buildButton(
+    String text,
+    Color color, {
+    Color textColor = Colors.white,
+    required VoidCallback onPressed,
+  }) {
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
