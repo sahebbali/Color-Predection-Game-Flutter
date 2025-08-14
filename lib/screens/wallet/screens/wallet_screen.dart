@@ -9,140 +9,163 @@ class WalletScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Column(
-        children: [
-          // Header
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Color(0xFF7B1FA2), Color(0xFF9C27B0)],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              ),
-              borderRadius: BorderRadius.vertical(
-                bottom: Radius.circular(20),
-              ),
-            ),
-            child: Column(
-              children: [
-                const SizedBox(height: 40),
-                Row(
-                  children: [
-                    GestureDetector(
-                      onTap: () => Navigator.pop(context),
-                      child: const Icon(Icons.arrow_back, color: Colors.white),
-                    ),
-                    const Spacer(),
-                    const Icon(Icons.account_balance_wallet,
-                        color: Colors.white),
-                  ],
+      body: SingleChildScrollView(
+        // Wrapped with SingleChildScrollView
+        child: Column(
+          children: [
+            // Header
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Color(0xFF7B1FA2), Color(0xFF9C27B0)],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
                 ),
-                const SizedBox(height: 20),
-                const Text(
-                  "PKR389.00",
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                borderRadius: BorderRadius.vertical(
+                  bottom: Radius.circular(20),
+                ),
+              ),
+              child: Column(
+                children: [
+                  const SizedBox(height: 40),
+                  Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () => Navigator.pop(context),
+                        child: const Icon(
+                          Icons.arrow_back,
+                          color: Colors.white,
+                        ),
+                      ),
+                      const Spacer(),
+                      const Icon(
+                        Icons.account_balance_wallet,
+                        color: Colors.white,
+                      ),
+                    ],
                   ),
-                ),
-                const SizedBox(height: 4),
-                const Text(
-                  "Total balance",
-                  style: TextStyle(color: Colors.white70, fontSize: 16),
-                ),
-                const SizedBox(height: 20),
+                  const SizedBox(height: 20),
+                  const Text(
+                    "PKR389.00",
+                    style: TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  const Text(
+                    "Total balance",
+                    style: TextStyle(color: Colors.white70, fontSize: 16),
+                  ),
+                  const SizedBox(height: 20),
 
-                // Wallet Progress Row
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    _walletProgress(
+                  // Wallet Progress Row
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      _walletProgress(
                         percent: 1.0,
                         amount: "PKR389.00",
                         label: "Main wallet",
-                        color: Colors.white),
-                    const SizedBox(width: 40),
-                    _walletProgress(
+                        color: Colors.white,
+                      ),
+                      const SizedBox(width: 40),
+                      _walletProgress(
                         percent: 0.0,
                         amount: "PKR0.00",
                         label: "3rd party wallet",
-                        color: Colors.white70),
-                  ],
-                ),
-
-                const SizedBox(height: 20),
-
-                // Main wallet transfer button
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
-                      foregroundColor: purple,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
+                        color: Colors.white70,
                       ),
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                    ),
-                    onPressed: () {},
-                    child: const Text(
-                      "Main wallet transfer",
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ],
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  // Main wallet transfer button
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        foregroundColor: purple,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                      ),
+                      onPressed: () {},
+                      child: const Text(
+                        "Main wallet transfer",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
 
-          const SizedBox(height: 20),
+            const SizedBox(height: 20),
 
-          // Action Buttons
-          SizedBox(
-            height: 100,
-            child: GridView.count(
-              crossAxisCount: 4,
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              children: [
-                _actionButton(Icons.add_circle_outline, "Deposit", purple),
-                _actionButton(Icons.remove_circle_outline, "Withdraw", purple),
-                _actionButton(Icons.history, "Deposit history", purple),
-                _actionButton(Icons.receipt_long, "Withdrawal history", purple),
-              ],
+            // Action Buttons
+            SizedBox(
+              height: 100,
+              child: GridView.count(
+                crossAxisCount: 4,
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                physics:
+                    const NeverScrollableScrollPhysics(), // Disable GridView's own scrolling
+                children: [
+                  _actionButton(Icons.add_circle_outline, "Deposit", purple),
+                  _actionButton(
+                    Icons.remove_circle_outline,
+                    "Withdraw",
+                    purple,
+                  ),
+                  _actionButton(Icons.history, "Deposit history", purple),
+                  _actionButton(
+                    Icons.receipt_long,
+                    "Withdrawal history",
+                    purple,
+                  ),
+                ],
+              ),
             ),
-          ),
 
-          const SizedBox(height: 10),
+            const SizedBox(height: 10),
 
-          // Game Balances Grid
-          Expanded(
-            child: GridView.count(
+            // Game Balances Grid
+            GridView.count(
               crossAxisCount: 3,
               padding: const EdgeInsets.all(12),
               crossAxisSpacing: 12,
               mainAxisSpacing: 12,
+              shrinkWrap: true, // Important for nested scrollables
+              physics:
+                  const NeverScrollableScrollPhysics(), // Disable GridView's own scrolling
               children: [
                 _gameTile("389.00", "Lottery", purple, isActive: true),
-                _gameTile("0.00", "TB_Chess", purple),
-                _gameTile("0.00", "Wickets9", purple),
-                _gameTile("0.00", "CQ9", purple),
-                _gameTile("0.00", "MG", purple),
-                _gameTile("0.00", "JDB", purple),
-                _gameTile("0.00", "DG", purple),
-                _gameTile("0.00", "CMD", purple),
-                _gameTile("0.00", "SaBa", purple),
-                _gameTile("0.00", "EVO_Video", purple),
-                _gameTile("0.00", "JILI", purple),
-                _gameTile("0.00", "Card365", purple),
+                _gameTile("0.00", "TB_Chess", purple, isActive: true),
+                _gameTile("0.00", "Wickets9", purple, isActive: true),
+                _gameTile("0.00", "CQ9", purple, isActive: true),
+                _gameTile("0.00", "MG", purple, isActive: true),
+                _gameTile("0.00", "JDB", purple, isActive: true),
+                _gameTile("0.00", "DG", purple, isActive: true),
+                _gameTile("0.00", "CMD", purple, isActive: true),
+                _gameTile("0.00", "SaBa", purple, isActive: true),
+                _gameTile("0.00", "EVO_Video", purple, isActive: true),
+                _gameTile("0.00", "JILI", purple, isActive: true),
+                _gameTile("0.00", "Card365", purple, isActive: true),
               ],
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
+
+  // ... (rest of your helper methods remain the same)
 
   // Wallet Progress Widget
   static Widget _walletProgress({
@@ -168,15 +191,25 @@ class WalletScreen extends StatelessWidget {
             ),
             Text(
               "${(percent * 100).toStringAsFixed(0)}%",
-              style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
           ],
         ),
         const SizedBox(height: 8),
-        Text(amount,
-            style: const TextStyle(
-                fontWeight: FontWeight.bold, color: Colors.white)),
-        Text(label, style: const TextStyle(color: Colors.white70, fontSize: 12)),
+        Text(
+          amount,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+        Text(
+          label,
+          style: const TextStyle(color: Colors.white70, fontSize: 12),
+        ),
       ],
     );
   }
@@ -195,15 +228,22 @@ class WalletScreen extends StatelessWidget {
           child: Icon(icon, size: 28, color: purple),
         ),
         const SizedBox(height: 6),
-        Text(label,
-            textAlign: TextAlign.center, style: const TextStyle(fontSize: 12)),
+        Text(
+          label,
+          textAlign: TextAlign.center,
+          style: const TextStyle(fontSize: 12),
+        ),
       ],
     );
   }
 
   // Game Tile Widget
-  static Widget _gameTile(String amount, String title, Color purple,
-      {bool isActive = false}) {
+  static Widget _gameTile(
+    String amount,
+    String title,
+    Color purple, {
+    bool isActive = false,
+  }) {
     return Container(
       decoration: BoxDecoration(
         color: isActive ? purple : Colors.grey.shade100,

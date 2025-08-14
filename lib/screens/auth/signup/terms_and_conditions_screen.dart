@@ -19,7 +19,7 @@ Welcome to Color Prediction Game!
 By using our services, you agree to follow all policies and game rules.
 """;
 
-  TermsAndConditionsPage({super.key});
+  const TermsAndConditionsPage({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -37,11 +37,6 @@ void showConfirmationDialog(BuildContext context, String selection) {
                     width: double.infinity,
                     child: ToggleButtons(
                       // List of widgets to display for each button
-                      children: contractMoneyOptions
-                          .map((amount) => Text('$amount'))
-                          .toList(),
-
-                      // The core logic: A list of booleans to say which button is active
                       isSelected: contractMoneyOptions
                           .map((amount) => selectedContractMoney == amount)
                           .toList(),
@@ -76,6 +71,10 @@ void showConfirmationDialog(BuildContext context, String selection) {
                         minHeight: 40.0,
                         minWidth: 50.0, // Adjust this if needed
                       ),
+                      // List of widgets to display for each button
+                      children: contractMoneyOptions
+                          .map((amount) => Text('$amount'))
+                          .toList(),
                     ),
                   ),
                   const SizedBox(height: 20),
