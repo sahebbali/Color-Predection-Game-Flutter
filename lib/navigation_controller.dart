@@ -12,7 +12,7 @@ class NavigationController extends GetxController {
   final RxInt selectedIndex = 0.obs;
 
   final List<Widget> screens = [
-    const HomeScreen(),
+    HomeScreen(),
     const GameScreen(),
     const StatsScreen(),
     const WalletScreen(),
