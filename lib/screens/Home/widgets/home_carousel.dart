@@ -9,17 +9,16 @@ class HomeCarousel extends StatelessWidget {
   final HomeController controller;
 
   const HomeCarousel({super.key, required this.controller});
-    // final CarouselController carouselController = CarouselController();
+  // final CarouselController carouselController = CarouselController();
 
   @override
-
   Widget build(BuildContext context) {
     // Obx wraps the entire part of the UI that depends on reactive variables.
     return Obx(
       () => Column(
         children: [
           cs.CarouselSlider(
-              // carouselController: controller.carouselController, // 👈 link controller
+            // carouselController: controller.carouselController, // 👈 link controller
             options: cs.CarouselOptions(
               height: 180,
               autoPlay: true,
@@ -70,7 +69,7 @@ class HomeCarousel extends StatelessWidget {
                 onTap: () {
                   // controller
                   //     .updateCarouselIndex(entry.key); // update GetX state
-                  controller.carouselController.animateToPage(entry.key); // move carousel
+                  // controller.carouselController.animateToPage(entry.key); // move carousel
                 },
                 child: Container(
                   width: 10.0,

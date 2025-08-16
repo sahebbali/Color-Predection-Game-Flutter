@@ -27,7 +27,7 @@ class GameCategoryGrid extends StatelessWidget {
   void _navigateToPage(String gameName) {
     switch (gameName) {
       case 'Poll Game':
-        Get.to(() => const PollPage());
+        Get.to(() => PollPage());
         break;
       case 'Number League':
         Get.to(() => const NumberLeaguePage());
