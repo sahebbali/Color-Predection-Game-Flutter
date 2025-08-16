@@ -8,6 +8,7 @@ import '../widgets/game_category_grid.dart';
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
   final HomeController homeController = Get.put(HomeController());
+    final CarouselController carouselController = CarouselController();
 
   @override
   Widget build(BuildContext context) {

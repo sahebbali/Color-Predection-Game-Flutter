@@ -9,14 +9,17 @@ class HomeCarousel extends StatelessWidget {
   final HomeController controller;
 
   const HomeCarousel({super.key, required this.controller});
+    // final CarouselController carouselController = CarouselController();
 
   @override
+
   Widget build(BuildContext context) {
     // Obx wraps the entire part of the UI that depends on reactive variables.
     return Obx(
       () => Column(
         children: [
           cs.CarouselSlider(
+              // carouselController: controller.carouselController, // 👈 link controller
             options: cs.CarouselOptions(
               height: 180,
               autoPlay: true,
@@ -26,7 +29,7 @@ class HomeCarousel extends StatelessWidget {
                   controller.updateCarouselIndex(index),
             ),
             items: controller.carouselImages.map((imagePath) {
-              print(imagePath);
+              // print(imagePath);
               return Builder(
                 builder: (BuildContext context) {
                   return Container(
@@ -59,23 +62,30 @@ class HomeCarousel extends StatelessWidget {
           const SizedBox(height: 16),
 
           // Dots Indicator
+          // Indicators (with tap action)
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: controller.carouselImages.asMap().entries.map((entry) {
-              return Container(
-                width: 8.0,
-                height: 8.0,
-                margin: const EdgeInsets.symmetric(horizontal: 4.0),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  // Use the reactive variable from the controller to build the UI.
-                  color: controller.currentIndex.value == entry.key
-                      ? Colors.purple
-                      : Colors.grey.shade400,
+              return GestureDetector(
+                onTap: () {
+                  // controller
+                  //     .updateCarouselIndex(entry.key); // update GetX state
+                  controller.carouselController.animateToPage(entry.key); // move carousel
+                },
+                child: Container(
+                  width: 10.0,
+                  height: 10.0,
+                  margin: const EdgeInsets.symmetric(horizontal: 4.0),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: controller.currentIndex.value == entry.key
+                        ? Colors.purple
+                        : Colors.grey.shade400,
+                  ),
                 ),
               );
             }).toList(),
-          ),
+          )
         ],
       ),
     );

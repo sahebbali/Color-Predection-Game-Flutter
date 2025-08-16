@@ -1,5 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+// import 'package:carousel_slider/carousel_slider.dart' as cs;
 class HomeController extends GetxController {
   var currentIndex = 0.obs;
 
@@ -9,7 +10,9 @@ class HomeController extends GetxController {
     'assets/images/image-4.jpg',
   ];
 
+  // final cs.CarouselController carouselController = cs.CarouselController();
   void updateCarouselIndex(int index) {
+    print("Current carousel index: $index");
     currentIndex.value = index;
   }
 
