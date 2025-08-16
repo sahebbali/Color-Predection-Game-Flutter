@@ -2,29 +2,42 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class PollController extends GetxController {
-  // Sample poll question
-  var question = "Which color do you like most?".obs;
+  // List of polls
+  var polls = <Map<String, dynamic>>[
+    {
+      "question": "Which color do you like most?",
+      "options": ["Red", "Blue", "Green", "Yellow"],
+      "selected": -1
+    },
+    {
+      "question": "What's your favorite sport?",
+      "options": ["Soccer", "Basketball", "Cricket", "Tennis"],
+      "selected": -1
+    },
+    {
+      "question": "Which season do you prefer?",
+      "options": ["Summer", "Winter", "Spring", "Autumn"],
+      "selected": -1
+    },
+  ].obs;
 
-  // Options
-  var options = ["Red", "Blue", "Green", "Yellow"].obs;
-
-  // Selected index
-  var selectedIndex = (-1).obs;
-
-  // Submit action
-  void selectOption(int index) {
-    selectedIndex.value = index;
+  void selectOption(int pollIndex, int optionIndex) {
+    polls[pollIndex]["selected"] = optionIndex;
+    polls.refresh(); // notify GetX to update UI
   }
 
-  void submitPoll() {
-    if (selectedIndex.value == -1) {
+  void submitPoll(int pollIndex) {
+    int selected = polls[pollIndex]["selected"];
+    if (selected == -1) {
       Get.snackbar("Error", "Please select an option",
           snackPosition: SnackPosition.BOTTOM);
     } else {
-      Get.snackbar("Success", "You voted for ${options[selectedIndex.value]}",
+      String option = polls[pollIndex]["options"][selected];
+      Get.snackbar("Success", "You voted for $option",
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green.shade100);
-      selectedIndex.value = -1; // reset
+      polls[pollIndex]["selected"] = -1; // reset selection
+      polls.refresh();
     }
   }
 }
