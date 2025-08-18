@@ -1,7 +1,31 @@
+import 'package:color_predection_game/screens/wallet/pages/deposit_history_screen%20.dart';
+import 'package:color_predection_game/screens/wallet/pages/deposit_screen.dart';
+import 'package:color_predection_game/screens/wallet/pages/withdarw_history_screen.dart';
+import 'package:color_predection_game/screens/wallet/pages/withdarw_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class WalletScreen extends StatelessWidget {
   const WalletScreen({super.key});
+
+  void _navigationToTransferScreen(String level) {
+    print("kevek $level");
+    switch (level) {
+      case "Deposit":
+        // Navigate to Deposit Screen
+        Get.to(() => DepositScreen());
+        break;
+      case "Withdraw":
+        Get.to(() => WithdarwScreen());
+        break;
+      case "deposit history":
+        Get.to(() => DepositHistoryScreen());
+        break;
+      case "withdraw history":
+        Get.to(() => WithdarwHistoryScreen());
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +39,7 @@ class WalletScreen extends StatelessWidget {
           children: [
             // Header
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+              padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 13),
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   colors: [Color(0xFF7B1FA2), Color(0xFF9C27B0)],
@@ -28,8 +52,9 @@ class WalletScreen extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  const SizedBox(height: 40),
+                  // const SizedBox(height: 3),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       GestureDetector(
                         onTap: () => Navigator.pop(context),
@@ -38,22 +63,23 @@ class WalletScreen extends StatelessWidget {
                           color: Colors.white,
                         ),
                       ),
-                      const Spacer(),
+                      const Text(
+                        "PKR389.00",
+                        style: TextStyle(
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                      // const Spacer(),
                       const Icon(
                         Icons.account_balance_wallet,
                         color: Colors.white,
                       ),
                     ],
                   ),
-                  const SizedBox(height: 20),
-                  const Text(
-                    "PKR389.00",
-                    style: TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
+                  // const SizedBox(height: 0),
+
                   const SizedBox(height: 4),
                   const Text(
                     "Total balance",
@@ -109,26 +135,26 @@ class WalletScreen extends StatelessWidget {
             const SizedBox(height: 20),
 
             // Action Buttons
-            SizedBox(
-              height: 100,
-              child: GridView.count(
-                crossAxisCount: 4,
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                physics:
-                    const NeverScrollableScrollPhysics(), // Disable GridView's own scrolling
+            SingleChildScrollView(
+              child: Column(
                 children: [
-                  _actionButton(Icons.add_circle_outline, "Deposit", purple),
-                  _actionButton(
-                    Icons.remove_circle_outline,
-                    "Withdraw",
-                    purple,
+                  // all your widgets
+                  GridView.count(
+                    crossAxisCount: 4,
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true, // important
+                    children: [
+                      _actionButton(
+                          Icons.add_circle_outline, "Deposit", purple),
+                      _actionButton(
+                          Icons.remove_circle_outline, "Withdraw", purple),
+                      _actionButton(Icons.history, "Deposit history", purple),
+                      _actionButton(
+                          Icons.receipt_long, "Withdrawal history", purple),
+                    ],
                   ),
-                  _actionButton(Icons.history, "Deposit history", purple),
-                  _actionButton(
-                    Icons.receipt_long,
-                    "Withdrawal history",
-                    purple,
-                  ),
+                  // other widgets
                 ],
               ),
             ),
@@ -215,17 +241,20 @@ class WalletScreen extends StatelessWidget {
   }
 
   // Action Button Widget
-  static Widget _actionButton(IconData icon, String label, Color purple) {
+  Widget _actionButton(IconData icon, String label, Color purple) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Container(
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: purple.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(12),
+        GestureDetector(
+          onTap: () => _navigationToTransferScreen(label),
+          child: Container(
+            padding: const EdgeInsets.all(5),
+            decoration: BoxDecoration(
+              color: purple.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(icon, size: 28, color: purple),
           ),
-          child: Icon(icon, size: 28, color: purple),
         ),
         const SizedBox(height: 6),
         Text(
