@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:color_predection_game/commonWidgets/app_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -11,7 +12,8 @@ class DepositController extends GetxController {
 
   /// Pick image from gallery
   Future<void> pickImage() async {
-    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+    final pickedFile =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       proofImage.value = File(pickedFile.path);
     }
@@ -22,8 +24,12 @@ class DepositController extends GetxController {
     final txnId = txnIdController.text.trim();
 
     if (amount.isEmpty || txnId.isEmpty || proofImage.value == null) {
-      Get.snackbar("Error", "Please fill all fields and upload proof",
-          backgroundColor: Colors.red, colorText: Colors.white);
+      AppSnackbar.show(
+        title: "Error",
+        message: "Please fill all fields and upload proof",
+        isError: true,
+      );
+
       return;
     }
 

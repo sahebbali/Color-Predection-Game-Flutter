@@ -1,3 +1,4 @@
+import 'package:color_predection_game/commonWidgets/app_snackbar.dart';
 import 'package:color_predection_game/navigation_menu.dart';
 import 'package:color_predection_game/screens/auth/signup/terms_and_conditions_screen.dart';
 import 'package:flutter/material.dart';
@@ -20,11 +21,8 @@ class RegistrationController extends GetxController {
         phone.value.isEmpty ||
         password.value.isEmpty ||
         confirmPassword.value.isEmpty) {
-      Get.snackbar(
-        "Error",
-        "Please fill in all fields",
-        snackPosition: SnackPosition.BOTTOM,
-      );
+      AppSnackbar.show(
+          title: "Error", message: "Please fill all fields", isError: true);
       return;
     }
 
@@ -180,9 +178,8 @@ class RegistrationScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(12),
                       ),
                     ),
-                    onPressed: controller.isLoading.value
-                        ? null
-                        : controller.register,
+                    onPressed:
+                        controller.isLoading.value ? null : controller.register,
                     child: controller.isLoading.value
                         ? const CircularProgressIndicator(color: Colors.white)
                         : const Text(
