@@ -18,10 +18,10 @@ class WalletScreen extends StatelessWidget {
       case "Withdraw":
         Get.to(() => WithdarwScreen());
         break;
-      case "deposit history":
+      case "Deposit History":
         Get.to(() => DepositHistoryScreen());
         break;
-      case "withdraw history":
+      case "Withdraw History":
         Get.to(() => WithdarwHistoryScreen());
         break;
     }
@@ -149,9 +149,9 @@ class WalletScreen extends StatelessWidget {
                           Icons.add_circle_outline, "Deposit", purple),
                       _actionButton(
                           Icons.remove_circle_outline, "Withdraw", purple),
-                      _actionButton(Icons.history, "Deposit history", purple),
+                      _actionButton(Icons.history, "Deposit History", purple),
                       _actionButton(
-                          Icons.receipt_long, "Withdrawal history", purple),
+                          Icons.receipt_long, "Withdrawal History", purple),
                     ],
                   ),
                   // other widgets
