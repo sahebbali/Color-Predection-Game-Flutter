@@ -16,7 +16,7 @@ class WalletScreen extends StatelessWidget {
         Get.to(() => DepositScreen());
         break;
       case "Withdraw":
-        Get.to(() => WithdarwScreen());
+        Get.to(() => WithdrawScreen());
         break;
       case "Deposit History":
         Get.to(() => DepositHistoryScreen());
