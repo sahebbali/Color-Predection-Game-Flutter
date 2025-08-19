@@ -1,4 +1,5 @@
 import 'package:color_predection_game/screens/auth/login/signin_screen.dart';
+import 'package:color_predection_game/screens/profile/controllers/profile_controller.dart';
 import 'package:color_predection_game/screens/profile/screen/profile_options/address_screen.dart';
 import 'package:color_predection_game/screens/profile/screen/profile_options/bank_card_screen.dart';
 import 'package:flutter/material.dart';
@@ -10,14 +11,13 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       backgroundColor: Colors.white, // Background for the list area
       // The body is a Column containing the header and the list
       body: Column(
         children: [
           // 1. The custom header widget from your image
           ProfileHeader(),
-
           // 2. An Expanded ListView to fill the remaining space
           Expanded(child: ProfileMenuList()),
         ],
@@ -28,8 +28,8 @@ class ProfileScreen extends StatelessWidget {
 
 // --- Custom Header Widget ---
 class ProfileHeader extends StatelessWidget {
-  const ProfileHeader({super.key});
-
+  ProfileHeader({super.key});
+  final ProfileController profileController = Get.put(ProfileController());
   @override
   Widget build(BuildContext context) {
     // Replicating the colors from the image
@@ -96,9 +96,12 @@ class ProfileHeader extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              _buildInfoColumn('₹ 3.35', 'Balance', 'Recharge', buttonBlue),
-              _buildInfoColumn('₹ 0', 'Commission', 'See', buttonBlue),
-              _buildInfoColumn('₹ 0', 'Interest', 'See', buttonBlue),
+              _buildInfoColumn('₹ 3.35', 'Balance', 'Recharge', buttonBlue,
+                  profileController.recharge),
+              _buildInfoColumn('₹ 0', 'Commission', 'See', buttonBlue,
+                  profileController.view_commission),
+              _buildInfoColumn('₹ 0', 'Interest', 'See', buttonBlue,
+                  profileController.view_interest),
             ],
           ),
         ],
@@ -112,6 +115,7 @@ class ProfileHeader extends StatelessWidget {
     String label,
     String buttonText,
     Color buttonColor,
+    VoidCallback onPressed,
   ) {
     return Column(
       children: [
@@ -132,7 +136,7 @@ class ProfileHeader extends StatelessWidget {
         SizedBox(
           height: 30,
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: onPressed,
             style: ElevatedButton.styleFrom(
               backgroundColor: buttonColor,
               foregroundColor: Colors.white,
