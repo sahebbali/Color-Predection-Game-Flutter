@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:color_predection_game/screens/wallet/pages/deposit_screen.dart';
 import 'package:get/get.dart';
 import '../models/history_record.dart';
 import '../../../utils/app_colors.dart';
@@ -94,9 +95,7 @@ class GameController extends GetxController {
   }
 
   void recharge() {
-    // Logic for recharging
-    Get.toNamed('/recharge-screen'); // Example navigation
-    print("Recharge button pressed");
+    Get.to(() => DepositScreen());
   }
 
   void viewTrend() {
