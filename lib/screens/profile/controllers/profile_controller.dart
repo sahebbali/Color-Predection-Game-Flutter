@@ -1,3 +1,4 @@
+import 'package:color_predection_game/screens/profile/pages/commision/screens/commision_screen.dart';
 import 'package:color_predection_game/screens/wallet/pages/deposit_screen.dart';
 import 'package:get/get.dart';
 
@@ -11,6 +12,7 @@ class ProfileController extends GetxController {
 
   void view_commission() {
     print("View Commission tapped");
+    Get.to(() => CommissionScreen());
     // Logic for viewing commission
   }
 
