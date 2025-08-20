@@ -1,4 +1,5 @@
 import 'package:color_predection_game/screens/profile/pages/commision/screens/commision_screen.dart';
+import 'package:color_predection_game/screens/profile/pages/interest/screens/interest_history_screen.dart';
 import 'package:color_predection_game/screens/wallet/pages/deposit_screen.dart';
 import 'package:get/get.dart';
 
@@ -17,6 +18,7 @@ class ProfileController extends GetxController {
   }
 
   void view_interest() {
+    Get.to(() => InterestHistoryScreen());
     print("View Interest tapped");
     // Logic for viewing interest
   }
