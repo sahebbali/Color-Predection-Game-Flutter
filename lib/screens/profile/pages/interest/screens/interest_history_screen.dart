@@ -29,11 +29,12 @@ class InterestHistoryScreen extends StatelessWidget {
           const InterestHeader(),
           FilterBar(controller: controller),
           Expanded(
-            child: Obx(
+            child: Obx( // This Obx widget will react to changes in filteredHistory
               () => ListView.builder(
-                itemCount: controller.interestHistory.length,
+                // *** CHANGE HERE: Use the filteredHistory list ***
+                itemCount: controller.filteredHistory.length,
                 itemBuilder: (context, index) {
-                  final item = controller.interestHistory[index];
+                  final item = controller.filteredHistory[index];
                   return InterestListTile(item: item);
                 },
               ),
