@@ -1,47 +1,20 @@
-import 'package:color_predection_game/navigation_menu.dart';
 import 'package:color_predection_game/screens/auth/signup/registration_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class SignInController extends GetxController {
-  var isLoading = false.obs;
-  var username = ''.obs;
-  var password = ''.obs;
-
-  void signIn() async {
-    if (username.value.isEmpty || password.value.isEmpty) {
-      Get.snackbar(
-        "Error",
-        "Please fill in all fields",
-        snackPosition: SnackPosition.BOTTOM,
-      );
-      return;
-    }
-
-    isLoading.value = true;
-
-    await Future.delayed(const Duration(seconds: 2)); // Simulate API call
-    print(
-      "Signed in with username: ${username.value} and password: ${password.value}",
-    );
-    isLoading.value = false;
-    Get.snackbar(
-      "Success",
-      "Signed in successfully!",
-      snackPosition: SnackPosition.BOTTOM,
-    );
-    Get.to(() => NavigationMenu());
-  }
-}
+// Import your updated controller
+import 'sign_in_controller.dart';
 
 class SignInScreen extends StatelessWidget {
   SignInScreen({super.key});
+  
+  // Initialize the controller using Get.put()
   final SignInController controller = Get.put(SignInController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Sign In")),
+      appBar: AppBar(title: const Text("Sign In")),
       backgroundColor: Colors.grey.shade100,
       body: SafeArea(
         child: Center(
@@ -63,8 +36,10 @@ class SignInScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 32),
 
-                // Username
+                // Username TextField
                 TextField(
+                  // Link to the controller
+                  controller: controller.usernameController,
                   decoration: InputDecoration(
                     labelText: "Username",
                     prefixIcon: const Icon(Icons.person),
@@ -72,12 +47,13 @@ class SignInScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                  onChanged: (value) => controller.username.value = value,
                 ),
                 const SizedBox(height: 16),
 
-                // Password
+                // Password TextField
                 TextField(
+                  // Link to the controller
+                  controller: controller.passwordController,
                   obscureText: true,
                   decoration: InputDecoration(
                     labelText: "Password",
@@ -86,12 +62,11 @@ class SignInScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                  onChanged: (value) => controller.password.value = value,
                 ),
                 const SizedBox(height: 24),
 
                 // Sign In Button
-                Obx(
+                Obx( // Obx listens to changes in observable variables (isLoading)
                   () => SizedBox(
                     width: double.infinity,
                     height: 50,
@@ -102,11 +77,12 @@ class SignInScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
-                      onPressed: controller.isLoading.value
-                          ? null
-                          : controller.signIn,
+                      // Disable button when loading
+                      onPressed: controller.isLoading.value ? null : controller.signIn,
                       child: controller.isLoading.value
+                          // Show a loading indicator
                           ? const CircularProgressIndicator(color: Colors.white)
+                          // Show the button text
                           : const Text(
                               "Sign In",
                               style: TextStyle(
