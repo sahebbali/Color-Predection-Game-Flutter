@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:color_predection_game/navigation_menu.dart';
+import 'package:color_predection_game/utils/constants/base_url.dart';
 import 'package:color_predection_game/utils/helpers/local_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,11 +12,7 @@ class SignInController extends GetxController {
   final passwordController = TextEditingController();
 
   var isLoading = false.obs;
-
-  // The base URL for your backend API
-  // Use 10.0.2.2 for Android Emulator to connect to local machine's localhost
-  final String _baseUrl = "http://172.20.64.1:5953/api/v1/public";
-
+  
   // Clean up controllers when the widget is disposed
   @override
   void onClose() {
@@ -44,7 +41,7 @@ class SignInController extends GetxController {
 
     try {
       final response = await http.post(
-        Uri.parse('$_baseUrl/login'),
+        Uri.parse('${Surl().pubBaseUrl}/login'),
         headers: {
           'Content-Type': 'application/json',
         },
