@@ -1,6 +1,8 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:color_predection_game/commonWidgets/app_snackbar.dart';
 import 'package:color_predection_game/navigation_menu.dart';
+import 'package:color_predection_game/screens/auth/login/signin_screen.dart';
 import 'package:color_predection_game/utils/constants/base_url.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -25,6 +27,34 @@ class RegistrationController extends GetxController {
   var isOtpLoading = false.obs;
   var isRegisterLoading = false.obs;
 
+  // --- Timer State ---
+  Timer? _timer;
+  final int _initialTimerDuration = 60;
+  var resendTimer = 60.obs;
+  var canResendOtp = false.obs;
+
+  @override
+  void onClose() {
+    _timer?.cancel(); // IMPORTANT: Dispose the timer to prevent memory leaks
+    super.onClose();
+  }
+
+  /// Starts the countdown timer for the "Resend OTP" button.
+  void _startResendTimer() {
+    _timer?.cancel(); // Cancel any existing timer to be safe
+    canResendOtp.value = false;
+    resendTimer.value = _initialTimerDuration;
+
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (resendTimer.value > 0) {
+        resendTimer.value--;
+      } else {
+        canResendOtp.value = true;
+        timer.cancel();
+      }
+    });
+  }
+
   /// Handles the first step: Validates email/sponsor and requests an OTP from the server.
   Future<void> createOtp() async {
     // Manually validate only the fields required for OTP generation
@@ -35,7 +65,13 @@ class RegistrationController extends GetxController {
           isError: true);
       return;
     }
-
+    if (!acceptTerms.value) {
+      AppSnackbar.show(
+          title: "Error",
+          message: "Please accept the Terms & Conditions.",
+          isError: true);
+      return;
+    }
     isOtpLoading.value = true;
     try {
       final response = await http.post(
@@ -49,6 +85,7 @@ class RegistrationController extends GetxController {
             title: "Success",
             message: "OTP sent to your email!",
             isError: false);
+        _startResendTimer();
         isOtpSent.value =
             true; // IMPORTANT: This triggers the UI to show the OTP field
       } else {
@@ -68,6 +105,7 @@ class RegistrationController extends GetxController {
 
   /// Handles the second step: Validates all fields (including OTP) and registers the user.
   Future<void> _performRegistration() async {
+    print("terms accepted: ${acceptTerms.value}");
     if (formKey.currentState!.validate() && acceptTerms.value) {
       isRegisterLoading.value = true;
       try {
@@ -93,7 +131,7 @@ class RegistrationController extends GetxController {
               title: "Success",
               message: "Account created successfully!",
               isError: false);
-          Get.offAll(() => const NavigationMenu());
+          Get.offAll(() => SignInScreen());
         } else {
           final responseData = json.decode(response.body);
           AppSnackbar.show(

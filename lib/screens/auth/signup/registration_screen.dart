@@ -129,19 +129,45 @@ class RegistrationScreen extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(width: 10),
-                              Obx(() => TextButton(
-                                    onPressed: controller.isOtpLoading.value
-                                        ? null
-                                        : controller.createOtp,
-                                    child: controller.isOtpLoading.value
-                                        ? const SizedBox(
-                                            height: 18,
-                                            width: 18,
-                                            child: CircularProgressIndicator(
-                                                strokeWidth: 2),
-                                          )
-                                        : const Text("Resend OTP"),
-                                  )),
+                              Obx(() {
+                                // Determine the button's child widget based on the controller's state
+                                Widget buttonChild;
+                                if (controller.isOtpLoading.value) {
+                                  buttonChild = const SizedBox(
+                                    height: 18,
+                                    width: 18,
+                                    child: CircularProgressIndicator(
+                                        strokeWidth: 2, color: Colors.purple),
+                                  );
+                                } else if (controller.canResendOtp.value) {
+                                  buttonChild = const Text("Resend OTP");
+                                } else {
+                                  // Display the countdown timer
+                                  buttonChild = Text(
+                                      "Retry in ${controller.resendTimer.value}s");
+                                }
+
+                                return TextButton(
+                                  style: TextButton.styleFrom(
+                                    backgroundColor: Colors.purple.shade100,
+                                    foregroundColor: Colors.purple.shade700,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                    // Use different colors for the disabled state for better UX
+                                    disabledBackgroundColor:
+                                        Colors.grey.shade200,
+                                    disabledForegroundColor:
+                                        Colors.grey.shade500,
+                                  ),
+                                  // The button is only pressable when canResendOtp is true and it's not loading
+                                  onPressed: (controller.canResendOtp.value &&
+                                          !controller.isOtpLoading.value)
+                                      ? controller.createOtp
+                                      : null,
+                                  child: buttonChild,
+                                );
+                              })
                             ],
                           ),
                         );
