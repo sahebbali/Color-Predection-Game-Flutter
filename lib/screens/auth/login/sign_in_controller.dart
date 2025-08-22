@@ -13,7 +13,7 @@ class SignInController extends GetxController {
 
   // The base URL for your backend API
   // Use 10.0.2.2 for Android Emulator to connect to local machine's localhost
-  final String _baseUrl = "http://10.0.2.2:3000/api/v1";
+  final String _baseUrl = "http://172.20.64.1:5953/api/v1/public";
 
   // Clean up controllers when the widget is disposed
   @override
@@ -38,17 +38,17 @@ class SignInController extends GetxController {
       );
       return;
     }
-
+    print("Attempting login for user: $username");
     isLoading.value = true;
 
     try {
       final response = await http.post(
         Uri.parse('$_baseUrl/login'),
         headers: {
-          'Content-Type': 'application/json; charset=UTF--8',
+          'Content-Type': 'application/json',
         },
         body: jsonEncode({
-          'username': username,
+          'userId': username,
           'password': password,
         }),
       );
@@ -60,7 +60,7 @@ class SignInController extends GetxController {
         // --- SUCCESS ---
         // Assuming your backend returns a success message and maybe a token
         // e.g., { "success": true, "message": "Login successful", "token": "..." }
-        
+
         print("Login successful: $responseBody");
 
         Get.snackbar(
@@ -76,7 +76,8 @@ class SignInController extends GetxController {
         // await saveToken(token);
 
         // Navigate to the main app screen
-        Get.offAll(() => NavigationMenu()); // Use offAll to clear the auth stack
+        Get.offAll(
+            () => NavigationMenu()); // Use offAll to clear the auth stack
       } else {
         // --- ERROR FROM BACKEND ---
         // Assuming your backend returns an error message
