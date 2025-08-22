@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:color_predection_game/navigation_menu.dart';
+import 'package:color_predection_game/utils/helpers/local_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -62,7 +63,10 @@ class SignInController extends GetxController {
         // e.g., { "success": true, "message": "Login successful", "token": "..." }
 
         print("Login successful: $responseBody");
-
+        final token = responseBody['token'];
+        await saveToken(token);
+        final rec_token = await getToken();
+        print("🔑 Retrieved token: $rec_token");
         Get.snackbar(
           "Success",
           responseBody['message'] ?? "Signed in successfully!",
